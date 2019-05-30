@@ -1,5 +1,6 @@
-import QtQuick 2.12
+import QtQuick 2.11
 import QtQuick.Controls 2.5
+import QtMultimedia 5.12
 import QtWebSockets 1.1
 
 ApplicationWindow {
@@ -9,29 +10,26 @@ ApplicationWindow {
     title: qsTr("Server")
 
     function appendMessage(message) {
-        messageBox.text += "\n" + message
-    }
-
-    Image {
-        id: image
-
-        anchors.fill: parent
-
-        property string imageData: ""
-
-        source: "data:image/png;base64," + imageData
-
-        visible: imageData.length > 0
+        var currentDate = new Date();
+        var datetime = "[" + currentDate.getHours() + ":"
+                + currentDate.getMinutes() + ":" + currentDate.getSeconds() + "]";
+        textArea.append(datetime + " " + message);
     }
 
     WebSocketServer {
         id: server
+
+        property var client: null
+
         listen: true
-        host: "192.168.1.7"
+        host: "10.42.0.1"
         port: 1234
         onClientConnected: {
+            appendMessage("Client connected");
+            client = webSocket;
             webSocket.onTextMessageReceived.connect(function(message) {
-                image.imageData = message;
+                appendMessage("Message received from client");
+                detector.test_detector(message);
             });
         }
         onErrorStringChanged: {
@@ -39,10 +37,23 @@ ApplicationWindow {
         }
     }
 
+    Connections {
+        target: detector
 
-    Text {
-        id: messageBox
-        text: qsTr("Click to send a message!")
+        onImageRecognized: {
+            server.client.sendTextMessage(imageData)
+            appendMessage("Message sent to client");
+        }
+
+        onSendDetectedSignsStr: {
+            server.client.sendTextMessage(detectedSignsStr)
+            appendMessage("Message sent to client");
+        }
+    }
+
+    TextArea {
+        id: textArea
+
         anchors.fill: parent
     }
 }

@@ -1,5 +1,24 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>road_signs/information-crossing-pedestrian.png</file>
+        <file>road_signs/information-motorway.png</file>
+        <file>road_signs/information-motorway_end.png</file>
+        <file>road_signs/information-parking.png</file>
+        <file>road_signs/information-priority-road.png</file>
+        <file>road_signs/information-priority-road_end.png</file>
+        <file>road_signs/information-road-narrowing.png</file>
+        <file>road_signs/prohibited-access-entry.png</file>
+        <file>road_signs/prohibited-access.png</file>
+        <file>road_signs/prohibited-action-overtaking.png</file>
+        <file>road_signs/prohibited-action-speed.png</file>
+        <file>road_signs/prohibited-parking-stopping.png</file>
+        <file>road_signs/prohibited-parking.png</file>
+        <file>road_signs/prohibited-road-narrowing.png</file>
+        <file>road_signs/warning-crossroad-give-way.png</file>
+        <file>road_signs/warning-crossroad-stop.png</file>
+        <file>road_signs/warning-pedestrian-crossing.png</file>
+        <file>road_signs/warning-traffic-lights.png</file>
+        <file>road_signs/warning.png</file>
     </qresource>
 </RCC>
